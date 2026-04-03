@@ -255,6 +255,7 @@ Al ejecutar la aplicación, verás un menú con las siguientes opciones:
 Este proyecto es para fines educativos y académicos.
 
 ## 👥 Autores
+Jorge E. V. V. - 2026
 
 Desarrollado como proyecto académico para demostrar integración de:
 - Criptografía y seguridad
