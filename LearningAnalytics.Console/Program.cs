@@ -82,15 +82,14 @@ namespace LearningAnalytics.Console
                     System.Console.ResetColor();
                     System.Console.WriteLine();
 
-                    System.Console.WriteLine("1. Ejecutar análisis completo");
-                    System.Console.WriteLine("2. Cargar y analizar CSV");
-                    System.Console.WriteLine("3. Generar datos de ejemplo");
-                    System.Console.WriteLine("4. Probar criptografía");
-                    System.Console.WriteLine("5. Probar blockchain");
-                    System.Console.WriteLine("6. Probar Machine Learning");
-                    System.Console.WriteLine("7. Ver información de blockchain");
-                    System.Console.WriteLine("8. Exportar datos");
-                    System.Console.WriteLine("9. Salir");
+                    System.Console.WriteLine("1. Cargar y analizar CSV");
+                    System.Console.WriteLine("2. Generar datos de ejemplo");
+                    System.Console.WriteLine("3. Probar criptografía");
+                    System.Console.WriteLine("4. Probar blockchain");
+                    System.Console.WriteLine("5. Probar Machine Learning");
+                    System.Console.WriteLine("6. Ver información de blockchain");
+                    System.Console.WriteLine("7. Exportar datos");
+                    System.Console.WriteLine("8. Salir");
                     System.Console.WriteLine();
 
                     System.Console.ForegroundColor = ConsoleColor.White;
@@ -101,30 +100,27 @@ namespace LearningAnalytics.Console
                     switch (choice)
                     {
                         case "1":
-                            await RunCompleteAnalysis();
-                            break;
-                        case "2":
                             await LoadAndAnalyzeCsv();
                             break;
-                        case "3":
+                        case "2":
                             await GenerateSampleData();
                             break;
-                        case "4":
+                        case "3":
                             TestCryptography();
                             break;
-                        case "5":
+                        case "4":
                             TestBlockchain();
                             break;
-                        case "6":
+                        case "5":
                             await TestMachineLearning();
                             break;
-                        case "7":
+                        case "6":
                             ShowBlockchainInfo();
                             break;
-                        case "8":
+                        case "7":
                             ExportData();
                             break;
-                        case "9":
+                        case "8":
                             System.Console.ForegroundColor = ConsoleColor.Green;
                             System.Console.WriteLine("¡Hasta luego!");
                             System.Console.ResetColor();
@@ -136,7 +132,7 @@ namespace LearningAnalytics.Console
                             break;
                     }
 
-                    if (choice != "9")
+                    if (choice != "8")
                     {
                         System.Console.ForegroundColor = ConsoleColor.White;
                         System.Console.Write("\nPresione Enter para continuar...");
@@ -150,110 +146,6 @@ namespace LearningAnalytics.Console
                     System.Console.WriteLine($"Error en menú: {ex.Message}");
                     System.Console.ResetColor();
                 }
-            }
-        }
-
-        private static async Task RunCompleteAnalysis()
-        {
-            try
-            {
-                System.Console.Clear();
-                System.Console.ForegroundColor = ConsoleColor.Green;
-                System.Console.WriteLine("ANÁLISIS COMPLETO DE LEARNING ANALYTICS");
-                System.Console.ResetColor();
-                System.Console.WriteLine();
-
-                // Paso 1: Generar o cargar datos
-                System.Console.ForegroundColor = ConsoleColor.White;
-                System.Console.WriteLine("Paso 1: Generando datos de ejemplo...");
-                System.Console.ResetColor();
-                var students = _dataProcessingService.GenerateSampleData(50);
-                var cleanedStudents = _dataProcessingService.CleanStudentData(students);
-                System.Console.ForegroundColor = ConsoleColor.Green;
-                System.Console.WriteLine($"[OK] Se generaron {cleanedStudents.Count} estudiantes");
-                System.Console.ResetColor();
-
-                // Paso 2: Encriptar datos sensibles
-                System.Console.ForegroundColor = ConsoleColor.White;
-                System.Console.WriteLine("Paso 2: Encriptando datos sensibles...");
-                System.Console.ResetColor();
-                var encryptedStudents = await EncryptStudentData(cleanedStudents);
-                System.Console.ForegroundColor = ConsoleColor.Green;
-                System.Console.WriteLine($"[OK] Se encriptaron {encryptedStudents.Count} registros");
-                System.Console.ResetColor();
-
-                // Paso 3: Almacenar en blockchain
-                System.Console.ForegroundColor = ConsoleColor.White;
-                System.Console.WriteLine("Paso 3: Almacenando datos en blockchain...");
-                System.Console.ResetColor();
-                var blocks = await StoreDataInBlockchain(cleanedStudents);
-                System.Console.ForegroundColor = ConsoleColor.Green;
-                System.Console.WriteLine($"[OK] Se almacenaron {blocks.Count} bloques");
-                System.Console.ResetColor();
-
-                // Paso 4: Validar blockchain
-                System.Console.ForegroundColor = ConsoleColor.White;
-                System.Console.WriteLine("Paso 4: Validando integridad de blockchain...");
-                System.Console.ResetColor();
-                var isValid = _blockchainService.ValidateChain();
-                if (isValid)
-                {
-                    System.Console.ForegroundColor = ConsoleColor.Green;
-                    System.Console.WriteLine("[OK] Blockchain válida");
-                }
-                else
-                {
-                    System.Console.ForegroundColor = ConsoleColor.Red;
-                    System.Console.WriteLine("Blockchain inválida");
-                }
-                System.Console.ResetColor();
-
-                // Paso 5: Ejecutar análisis
-                System.Console.ForegroundColor = ConsoleColor.White;
-                System.Console.WriteLine("Paso 5: Ejecutando análisis educativo...");
-                System.Console.ResetColor();
-                var analysisResult = _analyticsService.AnalyzeStudents(cleanedStudents);
-
-                // Paso 6: Entrenar modelo ML
-                System.Console.ForegroundColor = ConsoleColor.White;
-                System.Console.WriteLine("Paso 6: Entrenando modelo de Machine Learning...");
-                System.Console.ResetColor();
-                var mlResult = _machineLearningService.TrainPassingModel(cleanedStudents);
-
-                // Paso 7: Mostrar resultados
-                System.Console.ForegroundColor = ConsoleColor.Cyan;
-                System.Console.WriteLine("RESULTADOS DEL ANÁLISIS");
-                System.Console.ResetColor();
-                System.Console.WriteLine();
-                
-                System.Console.ForegroundColor = ConsoleColor.White;
-                System.Console.WriteLine("ESTADÍSTICAS GENERALES:");
-                System.Console.ResetColor();
-                System.Console.WriteLine($"   • Total estudiantes: {analysisResult.TotalStudents}");
-                System.Console.WriteLine($"   • Promedio notas: {analysisResult.AverageGrade:F2}");
-                System.Console.WriteLine($"   • Promedio participación: {analysisResult.AverageParticipation:F2}");
-                System.Console.WriteLine($"   • Tasa aprobación: {analysisResult.PassRate:F1}%");
-                System.Console.WriteLine($"   • Tasa riesgo: {analysisResult.AtRiskRate:F1}%");
-                System.Console.WriteLine($"   • Correlación participación-nota: {analysisResult.ParticipationGradeCorrelation:F3}");
-                System.Console.WriteLine();
-
-                System.Console.ForegroundColor = ConsoleColor.White;
-                         System.Console.WriteLine("ESTADÍSTICAS GENERALES:");
-                if (mlResult.Success)
-                {
-                    System.Console.ForegroundColor = ConsoleColor.Magenta;
-                    System.Console.WriteLine("MACHINE LEARNING:");
-                    System.Console.ResetColor();
-                    System.Console.WriteLine($"   • Estado: [OK] Entrenado exitosamente");
-                    System.Console.WriteLine($"   • Precisión: {mlResult.TrainingAccuracy:F3}");
-                    System.Console.WriteLine($"   • Muestras: {mlResult.TrainingSamples}");
-                }
-            }
-            catch (Exception ex)
-            {
-                System.Console.ForegroundColor = ConsoleColor.Red;
-                System.Console.WriteLine($"Error en análisis completo: {ex.Message}");
-                System.Console.ResetColor();
             }
         }
 
@@ -303,8 +195,8 @@ namespace LearningAnalytics.Console
         {
             DisplayManager.ShowSectionHeader("GENERAR DATOS DE EJEMPLO");
 
-            var countStr = DisplayManager.GetUserInput("Número de estudiantes a generar (default: 30)");
-            var count = int.TryParse(countStr, out var n) && n > 0 ? n : 30;
+            var countStr = DisplayManager.GetUserInput("Número de estudiantes a generar (default: 10)");
+            var count = int.TryParse(countStr, out var n) && n > 0 ? n : 10;
 
             var students = _dataProcessingService.GenerateSampleData(count);
             
@@ -468,7 +360,14 @@ namespace LearningAnalytics.Console
             try
             {
                 var chain = _blockchainService.GetChain();
-                var json = ((BlockchainService)_blockchainService).ExportToJson();
+                
+                if (chain.Count == 0)
+                {
+                    DisplayManager.ShowWarning("No hay datos en la blockchain para exportar");
+                    return;
+                }
+                
+                var json = _blockchainService.ExportToJson();
 
                 var filePath = "blockchain_export.json";
                 File.WriteAllText(filePath, json);
@@ -476,6 +375,21 @@ namespace LearningAnalytics.Console
                 DisplayManager.ShowSuccess($"[OK] Datos exportados a {filePath}");
                 DisplayManager.ShowInfo($"Total bloques: {chain.Count}");
                 DisplayManager.ShowInfo($"Tamaño archivo: {new FileInfo(filePath).Length} bytes");
+                
+                // Validar JSON generado
+                try
+                {
+                    using var document = JsonDocument.Parse(json);
+                    DisplayManager.ShowSuccess("[OK] JSON generado es válido");
+                }
+                catch (JsonException ex)
+                {
+                    DisplayManager.ShowError($"JSON inválido: {ex.Message}");
+                }
+            }
+            catch (InvalidOperationException ex)
+            {
+                DisplayManager.ShowError($"Error de exportación: {ex.Message}");
             }
             catch (Exception ex)
             {

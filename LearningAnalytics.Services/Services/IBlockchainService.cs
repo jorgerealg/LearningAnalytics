@@ -50,6 +50,12 @@ namespace LearningAnalytics.Services.Services
         /// Limpia toda la cadena (solo para pruebas)
         /// </summary>
         void ClearChain();
+
+        /// <summary>
+        /// Exporta la cadena a formato JSON
+        /// </summary>
+        /// <returns>Representación JSON de la cadena</returns>
+        string ExportToJson();
     }
 
     /// <summary>

@@ -161,20 +161,29 @@ namespace LearningAnalytics.Services.Services
         {
             lock (_lock)
             {
-                var blocks = _chain.Select(b => new
+                try
                 {
-                    b.Index,
-                    Timestamp = b.Timestamp.ToString("O"),
-                    b.Data,
-                    b.PreviousHash,
-                    b.Hash,
-                    b.Nonce
-                });
+                    var blocks = _chain.Select(b => new
+                    {
+                        b.Index,
+                        Timestamp = b.Timestamp.ToString("O"),
+                        b.Data,
+                        b.PreviousHash,
+                        b.Hash,
+                        b.Nonce
+                    });
 
-                return System.Text.Json.JsonSerializer.Serialize(blocks, new System.Text.Json.JsonSerializerOptions
+                    var json = System.Text.Json.JsonSerializer.Serialize(blocks, new System.Text.Json.JsonSerializerOptions
+                    {
+                        WriteIndented = true
+                    });
+                    
+                    return json;
+                }
+                catch (Exception ex)
                 {
-                    WriteIndented = true
-                });
+                    throw new InvalidOperationException($"Error exporting blockchain to JSON: {ex.Message}", ex);
+                }
             }
         }
     }

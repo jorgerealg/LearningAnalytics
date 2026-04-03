@@ -114,7 +114,7 @@ namespace LearningAnalytics.Console.UI
             // Distribución
             System.Console.WriteLine("DISTRIBUCIÓN:");
             System.Console.WriteLine($"   • Aprobados: {result.PassingStudents} estudiantes");
-            System.Console.WriteLine($"   • Reprobados: {result.FailingStudents} estudiantes");
+            System.Console.WriteLine($"   • Suspendos: {result.FailingStudents} estudiantes");
             System.Console.WriteLine($"   • En riesgo: {result.AtRiskStudents} estudiantes");
             System.Console.WriteLine();
 
@@ -175,7 +175,7 @@ namespace LearningAnalytics.Console.UI
             foreach (var student in students.Take(20))
             {
                 var name = (student.Name.Length > 35) ? student.Name.Substring(0, 32) + "..." : student.Name;
-                var status = student.IsPassing ? "Aprobado" : "Reprobado";
+                var status = student.IsPassing ? "Aprobado" : "Suspenso";
                 var statusColor = student.IsPassing ? ConsoleColor.Green : ConsoleColor.Red;
 
                 System.Console.Write($"│ {name.PadRight(35)} │ ");
